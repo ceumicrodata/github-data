@@ -1,4 +1,8 @@
-all: temp/u2u_commits.csv temp/u2u_issues.csv
+RELATIONS := commits issues comments
+
+all: temp/u2u.csv
+temp/u2u.csv: src/project/merge.sql $(foreach table,$(RELATIONS),temp/u2u_$(table).csv) 
+	duckdb < $<
 temp/u2u_%.csv: temp/%.parquet src/project/u2u.sql
 	echo "create table relation as from read_parquet('$<');" > temp.sql
 	cat src/project/u2u.sql >> temp.sql
