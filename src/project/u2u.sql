@@ -17,10 +17,10 @@ select
     B.user_id as user2,
     count(*) as n_groups
 from 
-    A
-full outer join
+    A 
+cross join
     B
-on 
+where
     A.group_id = B.group_id 
     and not A.user_id = B.user_id
 group by
