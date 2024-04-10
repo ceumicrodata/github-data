@@ -11,10 +11,8 @@ sample_projects as
         read_parquet('temp/sample_projects.parquet')
 ) 
 select
-    p.project_id,
+    p.project_id as group_id,
     u.user_id,
-    date_trunc('day', created_at) as created_at,
-    count(*) as n_commits
 from 
     commits as c
 inner join 
@@ -26,7 +24,6 @@ inner join
 on 
     c.author_id = u.user_id
 group by
-    p.project_id, 
-    u.user_id,
-    created_at)
+    group_id, 
+    u.user_id)
 to 'temp/commits.parquet' (format parquet);
