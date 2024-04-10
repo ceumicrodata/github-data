@@ -1,4 +1,4 @@
-all: temp/u2u_commits.csv
+all: temp/u2u_commits.csv temp/u2u_issues.csv
 temp/u2u_%.csv: temp/%.parquet src/project/u2u.sql
 	echo "create table relation as from read_parquet('$<');" > temp.sql
 	cat src/project/u2u.sql >> temp.sql

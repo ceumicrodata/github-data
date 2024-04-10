@@ -1,4 +1,3 @@
-attach 'temp/ghtorrent.db' as ghtorrent (type duckdb);
 copy (with sample_users as (select 
         *
     from
