@@ -1,7 +1,7 @@
 copy (with sample_users as (select 
         *
     from
-        read_csv_auto('data/users.csv')
+        'data/users.parquet'
 ) 
 select
     p.column0 as group_id,

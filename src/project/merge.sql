@@ -4,35 +4,35 @@ with commits as (
         user1,
         user2,
         n_groups as n_projects
-    from 'temp/u2u_commits.csv'
+    from 'temp/u2u_commits.parquet'
 ),
 issues as (
     select 
         user1,
         user2,
         n_groups as n_issues
-    from 'temp/u2u_issues.csv'
+    from 'temp/u2u_issues.parquet'
 ),
 comments as (
     select 
         user1,
         user2,
         n_groups as n_threads
-    from 'temp/u2u_comments.csv'
+    from 'temp/u2u_comments.parquet'
 ),
 orgs as (
     select 
         user1,
         user2,
         n_groups as n_orgs
-    from 'temp/u2u_organizations.csv'
+    from 'temp/u2u_organizations.parquet'
 ),
 editors as (
     select 
         user1,
         user2,
         n_groups as n_editors
-    from 'temp/u2u_editors.csv'
+    from 'temp/u2u_editors.parquet'
 )
 select
     coalesce(c.user1, i.user1, t.user1, o.user1, e.user1) as user1,
@@ -64,4 +64,4 @@ full outer join
 on
     c.user1 = e.user1
     and c.user2 = e.user2)
-to 'data/u2u.csv';
+to 'data/u2u.parquet';
