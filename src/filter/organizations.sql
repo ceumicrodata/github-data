@@ -4,6 +4,7 @@ copy (with sample_users as (select
         'data/users.parquet'
 ) 
 select
+    'unknown' as language,
     o.organization_id as group_id,
     u.user_id,
     1 as sorting

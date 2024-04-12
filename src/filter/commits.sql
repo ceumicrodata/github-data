@@ -5,11 +5,13 @@ copy (with sample_users as (select
 ),
 sample_projects as 
 (   select 
-        project_id
+        project_id,
+        language
     from
         'data/projects.parquet'
 ) 
 select
+    any_value(language) as language,
     p.project_id as group_id,
     u.user_id,
     min(c.created_at) as sorting
