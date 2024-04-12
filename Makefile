@@ -1,4 +1,5 @@
-RELATIONS := commits issues comments organizations editors
+RELATIONS := commits issues comments organizations editors owners
+.PRECIOUS: *.parquet
 
 all: temp/u2u.parquet
 temp/u2u.parquet: src/project/merge.sql $(foreach table,$(RELATIONS),temp/u2u_$(table).parquet) 
@@ -12,6 +13,8 @@ temp/editors.parquet: src/filter/editors.sql temp/ghtorrent.db data/users.parque
 	duckdb -readonly temp/ghtorrent.db < $<
 temp/organizations.parquet: src/filter/organizations.sql temp/ghtorrent.db data/users.parquet
 	duckdb -readonly temp/ghtorrent.db < $<
+temp/u2u_owners.parquet: src/project/u2u_owners.sql temp/events.db data/users.parquet data/projects.parquet
+	duckdb -readonly temp/events.db < $<
 temp/%.parquet: src/filter/%.sql temp/events.db data/users.parquet data/projects.parquet
 	duckdb -readonly temp/events.db < $<
 data/users.parquet data/projects.parquet &: src/filter/export_sample.sql temp/ghtorrent.db 
