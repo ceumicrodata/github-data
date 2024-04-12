@@ -2,8 +2,14 @@ RELATIONS := commits issues comments organizations editors owners
 .PRECIOUS: *.parquet
 
 all: temp/u2u.parquet
-temp/u2u.parquet: src/project/merge.sql $(foreach table,$(RELATIONS),temp/u2u_$(table).parquet) 
+temp/u2u.parquet: src/project/merge.sql  
 	duckdb < $<
+src/project/merge.sql: $(foreach table,$(RELATIONS),temp/u2u_$(table).parquet)
+	echo "copy (" > $@
+	for table in $(RELATIONS) ; do \
+		echo "(select user1, user2, n_groups as n_links, '$$table' as relation from 'temp/u2u_$$table.parquet') union all" >> $@; \
+	done
+	echo "(select user1, user2, n_groups as n_links, 'none' as relation from 'temp/u2u_owners.parquet' where false)) to 'data/u2u.parquet' (format parquet);" >> $@
 temp/u2u_%.parquet: temp/%.parquet src/project/u2u.sql
 	echo "create table relation as from read_parquet('$<');" > temp.sql
 	cat src/project/u2u.sql >> temp.sql
