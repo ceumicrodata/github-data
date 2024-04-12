@@ -1,13 +1,13 @@
 copy (with sample_users as (select 
         *
     from
-        read_parquet('temp/sample_users.parquet')
+        read_csv_auto('data/users.csv')
 ),
 sample_projects as 
 (   select 
         project_id
     from
-        read_parquet('temp/sample_projects.parquet')
+        read_csv_auto('data/projects.csv')
 ) 
 select
     p.project_id as group_id,

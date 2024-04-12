@@ -1,2 +1,3 @@
 [deps]
+Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"
 TidierDB = "86993f9b-bbba-4084-97c5-ee15961ad48b"

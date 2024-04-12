@@ -1,7 +1,7 @@
 copy (with sample_users as (select 
         *
     from
-        read_parquet('temp/sample_users.parquet')
+        read_csv_auto('data/users.csv')
 ) 
 select
     i.issue_id as group_id,

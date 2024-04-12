@@ -10,9 +10,9 @@ where
     country_code is not null
     and city_name is not null
 )
-to 'temp/sample_users.parquet' (format parquet);
+to 'data/users.csv' (format csv);
 copy (select
     *
 from
     sample_projects)
-to 'temp/sample_projects.parquet' (format parquet);
+to 'data/projects.csv' (format csv);
