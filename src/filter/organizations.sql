@@ -6,6 +6,7 @@ copy (with sample_users as (select
 select
     o.organization_id as group_id,
     u.user_id,
+    1 as sorting
 from 
     sample_organizations as o
 inner join

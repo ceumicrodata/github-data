@@ -1,14 +1,12 @@
 copy (with A as (
     select 
-        group_id,
-        user_id
+        *
     from
         relation
 ),
 B as (
     select 
-        group_id,
-        user_id
+        *
     from
         relation
 )
@@ -23,6 +21,7 @@ cross join
 where
     A.group_id = B.group_id 
     and not A.user_id = B.user_id
+    and A.sorting <= B.sorting
 group by
     user1, user2
 having

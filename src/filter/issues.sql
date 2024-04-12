@@ -6,6 +6,7 @@ copy (with sample_users as (select
 select
     i.issue_id as group_id,
     u.user_id,
+    min(i.created_at) as sorting
 from 
     issue_events as i
 inner join

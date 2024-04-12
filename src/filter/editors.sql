@@ -6,6 +6,7 @@ copy (with sample_users as (select
 select
     p.column0 as group_id,
     u.user_id,
+    1 as sorting
 from 
     project_members as p
 inner join

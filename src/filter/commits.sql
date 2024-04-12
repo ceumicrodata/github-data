@@ -12,6 +12,7 @@ sample_projects as
 select
     p.project_id as group_id,
     u.user_id,
+    min(c.created_at) as sorting
 from 
     commits as c
 inner join 
