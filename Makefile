@@ -2,6 +2,8 @@ RELATIONS := commits issues comments organizations editors owners
 .PRECIOUS: *.parquet
 
 all: temp/u2u.parquet
+data/days.parquet: src/filter/days.sql temp/events.db
+	duckdb -readonly temp/events.db < $<
 temp/u2u.parquet: src/project/merge.sql  
 	duckdb < $<
 src/project/merge.sql: $(foreach table,$(RELATIONS),temp/u2u_$(table).parquet)
