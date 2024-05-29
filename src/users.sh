@@ -22,6 +22,10 @@ ALTER TABLE users RENAME column12 TO user_location;
 -- Delete users where country_code is \N
 DELETE FROM users WHERE country_code = '\N';
 
+
+ALTER TABLE users ALTER lon TYPE double;
+ALTER TABLE users ALTER lat TYPE double;
+
 -- Export the table to a Parquet file
 COPY (SELECT * FROM users) TO 'users.parquet' (FORMAT 'parquet');
 
